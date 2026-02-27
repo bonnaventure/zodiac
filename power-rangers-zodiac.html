@@ -4,69 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zodiac Slideshow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        .slideshow-container {
-            max-width: 1000px;
-            position: relative;
-            margin: auto;
+        :root {
+            --primary-color: #333;
+            --bg-color: #f4f4f9;
+            --card-bg: #ffffff;
+            --text-muted: #555;
+            --accent-color: #007bff;
         }
-        .slideshow-container h1 {
-            text-align: center;
-            font-size: 2em;
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--primary-color);
             margin: 0;
             padding: 20px;
-            
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
         }
+
+        .slideshow-container {
+            max-width: 700px;
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .slideshow-container h1 {
+            text-align: center;
+            font-size: 1.8em;
+            font-weight: 800;
+            margin: 0;
+            padding: 24px 20px;
+            background: var(--card-bg);
+            border-bottom: 1px solid #eee;
+        }
+
         .slide {
             display: none;
+            padding: 30px 20px;
             text-align: center;
-           
+            animation: fade 0.5s ease-in-out;
         }
+
+        .image-wrapper {
+            position: relative;
+            width: 100%;
+            height: 350px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
         .slide img {
-            width: auto;
-            max-height: 245px;
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
         }
+
+        .text {
+            font-size: 1.1em;
+            line-height: 1.5;
+            color: var(--text-muted);
+            max-width: 80%;
+            margin: 0 auto;
+        }
+
+        /* Navigation Arrows */
         .prev, .next {
             cursor: pointer;
             position: absolute;
             top: 50%;
-            width: 10em;
-            padding: 16px;
-            margin-top: -22px;
-            color: rgb(0, 0, 0);
+            transform: translateY(-50%);
+            width: 44px;
+            height: 44px;
+            background-color: rgba(0, 0, 0, 0.3);
+            color: white;
             font-weight: bold;
-            font-size: 48px;
-            transition: 0.6s ease;
-            border-radius: 0 3px 3px 0;
-            user-select: none;
-        }
-        .navigation {
+            font-size: 18px;
+            border-radius: 50%;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
-            width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            user-select: none;
+            text-decoration: none;
         }
-        .next {
-            right: 0;
-            border-radius: 3px 0 0 3px;
-        }
-     
 
+        .prev:hover, .next:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+            transform: translateY(-50%) scale(1.05);
+        }
+
+        .prev { left: 15px; }
+        .next { right: 15px; }
+
+        /* Dots */
         .dot-container {
             text-align: center;
-            padding: 20px;
-            background: #ddd;
+            padding: 15px 20px 25px;
+            background: var(--card-bg);
         }
+
         .dot {
             cursor: pointer;
-            height: 15px;
-            width: 15px;
+            height: 10px;
+            width: 10px;
+            margin: 0 5px;
+            background-color: #bbb;
             border-radius: 50%;
             display: inline-block;
-            transition: background-color 0.6s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
+
         .active, .dot:hover {
-            background-color: #717171;
+            background-color: var(--accent-color);
+            transform: scale(1.3);
+        }
+
+        /* Animations */
+        @keyframes fade {
+            from { opacity: 0.4; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 600px) {
+            .image-wrapper { height: 250px; }
+            .slideshow-container h1 { font-size: 1.5em; }
+            .text { font-size: 1em; max-width: 90%; }
+            .prev, .next { width: 36px; height: 36px; font-size: 14px; }
         }
     </style>
 </head>
@@ -74,117 +150,73 @@
 
 <div class="slideshow-container">
     <h1>Which Power Rangers Villain are You?</h1>
+    
     <div class="slide">
-        <img src="img/aries-goldar.webp" alt="Aries">
+        <div class="image-wrapper"><img src="img/aries-goldar.webp" alt="Aries"></div>
         <div class="text"><strong>Aries &#9800; (March 21 - April 19)</strong>: Goldar - Bold and aggressive, always ready for a fight.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/taurus-kingsphinx.webp" alt="Taurus">
+        <div class="image-wrapper"><img src="img/taurus-kingsphinx.webp" alt="Taurus"></div>
         <div class="text"><strong>Taurus &#9801; (April 20 - May 20)</strong>: King Sphinx - Strong and stubborn, with a powerful presence.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/gemini-twinman.webp" alt="Gemini">
+        <div class="image-wrapper"><img src="img/gemini-twinman.webp" alt="Gemini"></div>
         <div class="text"><strong>Gemini &#9802; (May 21 - June 20)</strong>: Twin Man - Dual nature, able to mimic the Rangers.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/cancer-shellshock.webp" alt="Cancer">
+        <div class="image-wrapper"><img src="img/cancer-shellshock.webp" alt="Cancer"></div>
         <div class="text"><strong>Cancer &#9803; (June 21 - July 22)</strong>: Shellshock - Protective with a hard exterior.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/leo-ritarepulsa.webp" alt="Leo">
+        <div class="image-wrapper"><img src="img/leo-ritarepulsa.webp" alt="Leo"></div>
         <div class="text"><strong>Leo &#9804; (July 23 - August 22)</strong>: Rita Repulsa - Intense and powerful, with a mysterious aura.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/virgo-eyeguy.webp" alt="Virgo">
+        <div class="image-wrapper"><img src="img/virgo-eyeguy.webp" alt="Virgo"></div>
         <div class="text"><strong>Virgo &#9805; (August 23 - September 22)</strong>: Eye Guy - Detail-oriented and analytical, with many eyes to see everything.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/libra-pudgypig.webp" alt="Libra">
+        <div class="image-wrapper"><img src="img/libra-pudgypig.webp" alt="Libra"></div>
         <div class="text"><strong>Libra &#9806; (September 23 - October 22)</strong>: Pudgy Pig - Social and charming, but can be indecisive.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/scorpio-scorpina.webp" alt="Scorpio">
+        <div class="image-wrapper"><img src="img/scorpio-scorpina.webp" alt="Scorpio"></div>
         <div class="text"><strong>Scorpio &#9807; (October 23 - November 21)</strong>: Scorpina - Fierce and dramatic, with a commanding presence.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/sagittarius-pumpkinrapper.webp" alt="Sagittarius">
+        <div class="image-wrapper"><img src="img/sagittarius-pumpkinrapper.webp" alt="Sagittarius"></div>
         <div class="text"><strong>Sagittarius &#9808; (November 22 - December 21)</strong>: Pumpkin Rapper - Adventurous and fun-loving, always ready to entertain.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/capricon-lordzedd.webp" alt="Capricorn">
+        <div class="image-wrapper"><img src="img/capricon-lordzedd.webp" alt="Capricorn"></div>
         <div class="text"><strong>Capricorn &#9809; (December 22 - January 19)</strong>: Lord Zedd - Ambitious and disciplined, with a strong sense of authority.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/aquarius-finster.webp" alt="Aquarius">
+        <div class="image-wrapper"><img src="img/aquarius-finster.webp" alt="Aquarius"></div>
         <div class="text"><strong>Aquarius &#9810; (January 20 - February 18)</strong>: Finster - Innovative and eccentric, always creating new monsters.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
     <div class="slide">
-        <img src="img/pisces-madamewoe.webp" alt="Pisces">
+        <div class="image-wrapper"><img src="img/pisces-madamewoe.webp" alt="Pisces"></div>
         <div class="text"><strong>Pisces &#9811; (February 19 - March 20)</strong>: Madame Woe - Mystical and empathetic, with a deep connection to emotions.</div>
-        <div class="navigation">
-            <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-            <a class="next" onclick="plusSlides(1)">&#10095;</a>
-        </div>
     </div>
-</div>
 
-<div class="dot-container">
-    <span class="dot" onclick="currentSlide(1)"></span>
-    <span class="dot" onclick="currentSlide(2)"></span>
-    <span class="dot" onclick="currentSlide(3)"></span>
-    <span class="dot" onclick="currentSlide(4)"></span>
-    <span class="dot" onclick="currentSlide(5)"></span>
-    <span class="dot" onclick="currentSlide(6)"></span>
-    <span class="dot" onclick="currentSlide(7)"></span>
-    <span class="dot" onclick="currentSlide(8)"></span>
-    <span class="dot" onclick="currentSlide(9)"></span>
-    <span class="dot" onclick="currentSlide(10)"></span>
-    <span class="dot" onclick="currentSlide(11)"></span>
-    <span class="dot" onclick="currentSlide(12)"></span>
+    <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+    <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+    <div class="dot-container">
+        <span class="dot" onclick="currentSlide(1)"></span>
+        <span class="dot" onclick="currentSlide(2)"></span>
+        <span class="dot" onclick="currentSlide(3)"></span>
+        <span class="dot" onclick="currentSlide(4)"></span>
+        <span class="dot" onclick="currentSlide(5)"></span>
+        <span class="dot" onclick="currentSlide(6)"></span>
+        <span class="dot" onclick="currentSlide(7)"></span>
+        <span class="dot" onclick="currentSlide(8)"></span>
+        <span class="dot" onclick="currentSlide(9)"></span>
+        <span class="dot" onclick="currentSlide(10)"></span>
+        <span class="dot" onclick="currentSlide(11)"></span>
+        <span class="dot" onclick="currentSlide(12)"></span>
+    </div>
 </div>
 
 <script>
